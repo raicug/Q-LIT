@@ -21,7 +21,7 @@ Wrap your string literals in the macros below.
 ### Narrow (`char`)
 
 ``` cpp
-#include "Q-LIT.hpp"
+#include "q_lit.hpp"
 
 const char* msg = QL_("Hello");
 std::puts(msg);
