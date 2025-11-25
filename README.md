@@ -63,7 +63,3 @@ reverse-engineering.
 
 -   C++17 or later
 -   Standard C++ library (`<array>`, `<cstdint>`, `<cstddef>`)
-
-## License
-
-Insert your license information here.
