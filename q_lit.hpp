@@ -1,3 +1,7 @@
+// QLIB - Compile-time string obfuscation
+// Copyright (c) 2025-2026 raicug
+// Licensed under the MIT License
+
 #pragma once
 
 #include <array>
