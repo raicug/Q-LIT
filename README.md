@@ -91,7 +91,7 @@ Q‑LIT/
  ├─ examples/
  │   └─ example.cpp
  ├─ tests/
- │   └─ tests.cpp
+ │   └─ test.cpp
  ├─ README.md
  └─ LICENSE
 ```
@@ -106,7 +106,4 @@ Distributed under the **MIT License**.
 
 ## Contribution & Versioning
 
-- Pull requests are welcome.  
-- Use Git tags for versioning (e.g., `v1.0.0`).  
-- Consider adding a `CHANGELOG.md` for tracking updates.
-
+- Pull requests are welcome.
