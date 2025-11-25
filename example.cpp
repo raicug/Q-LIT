@@ -1,5 +1,6 @@
-// example.cpp
-// Demonstrates usage of QLIT string obfuscation.
+// QLIB - Compile-time string obfuscation
+// Copyright (c) 2025-2026 raicug
+// Licensed under the MIT License
 
 #include <iostream>
 #include "q_lit.hpp"
