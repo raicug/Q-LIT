@@ -1,65 +1,112 @@
-# Q-LIT
+# Q‑LIT
 
-Q-LIT is a compact, header-only C++ library for compile-time string
-obfuscation. It encodes string literals with XOR at compile time and
-decrypts them lazily at runtime, preventing plaintext strings from
-appearing directly in binaries.
+**Q‑LIT** is a lightweight, header‑only C++ library for **compile‑time string obfuscation**. It encodes string literals using XOR at compile time and decrypts them lazily at runtime, helping avoid plaintext strings appearing in binaries.
+
+---
 
 ## Features
 
--   Compile-time XOR encoding\
--   Unique per-string keys using `__COUNTER__`\
--   Time-based seed mixing via `__TIME__`\
--   One-time, in-place decryption on first use\
--   Supports `char`, `wchar_t`, `char16_t`, `char32_t`\
--   Header-only and dependency-free
+- Compile‑time XOR encoding of literals  
+- Unique per‑string keys via `__COUNTER__`  
+- Time‑based seed derived from `__TIME__`  
+- In‑place, one‑time decryption on first access  
+- Supports: `char`, `wchar_t`, `char16_t`, `char32_t`  
+- Header‑only, no external dependencies  
+
+---
 
 ## Usage
 
-Wrap your string literals in the macros below.
+Include the header (`q_lit.hpp`) and wrap your string literals with one of the macros:
 
 ### Narrow (`char`)
-
-``` cpp
+```cpp
 #include "q_lit.hpp"
 
-const char* msg = QL_("Hello");
+const char* msg = QL_("Hello, world!");
 std::puts(msg);
 ```
 
 ### Wide (`wchar_t`)
-
-``` cpp
-const wchar_t* wmsg = QL_W(L"Wide string");
+```cpp
+const wchar_t* wmsg = QL_W(L"Wide string example");
+std::wcout << wmsg << L"\n";
 ```
 
-### UTF-16
-
-``` cpp
-const char16_t* s16 = QL_U16(u"UTF16 text");
+### UTF‑16
+```cpp
+const char16_t* u16 = QL_U16(u"UTF16 sample");
 ```
 
-### UTF-32
-
-``` cpp
-const char32_t* s32 = QL_U32(U"UTF32 text");
+### UTF‑32
+```cpp
+const char32_t* u32 = QL_U32(U"UTF32 sample");
 ```
+
+---
 
 ## How It Works
 
-At compile time: - Each character is XOR-encoded using a key derived
-from: - A time-based seed (`__TIME__`) - A unique seed from
-`__COUNTER__` - The character index
+### Compile Time  
+- A base key is generated from `__TIME__`.  
+- Each string literal uses a unique `Seed` (via `__COUNTER__`).  
+- Each character is XOR‑encoded with:  
+  `base_key + 37 * Seed + 17 * index + 23`  
+- The encoded array is stored in a `constexpr` object.
 
-At runtime: - The encoded buffer is stored in a static object. - First
-access decrypts the buffer in place. - Later accesses return the
-already-decrypted data.
+### Runtime  
+- On first call to `c_str()`, the buffer is decrypted in place and a flag prevents repeated decryption.  
+- Subsequent calls return the same decrypted buffer efficiently.
 
-This is obfuscation, not cryptographic security. It prevents simple
-string extraction from binaries but is not intended to resist dedicated
-reverse-engineering.
+### Important Notes  
+- This is **obfuscation**, not encryption.  
+- Decryption modifies a static object: **not thread‑safe**.  
+- Works only with **compile‑time literals**, not runtime strings.
 
-## Requirements
+---
 
--   C++17 or later
--   Standard C++ library (`<array>`, `<cstdint>`, `<cstddef>`)
+## Compatibility & Requirements
+
+- Requires **C++17** or later.  
+- Known-compatible compilers: GCC, Clang, MSVC.  
+- Supports the following character types:  
+  `char`, `wchar_t`, `char16_t`, `char32_t`.
+
+---
+
+## Limitations & Recommendations
+
+- Avoid multithreaded access before decryption unless synchronized.  
+- Runtime-generated strings cannot be obfuscated using this method.  
+- Consider this a deterrent, not a secure encryption strategy.
+
+---
+
+## Example Project Structure
+
+```
+Q‑LIT/
+ ├─ include/
+ │   └─ q_lit.hpp
+ ├─ examples/
+ │   └─ example.cpp
+ ├─ tests/
+ │   └─ tests.cpp
+ ├─ README.md
+ └─ LICENSE
+```
+
+---
+
+## License
+
+Distributed under the **MIT License**.
+
+---
+
+## Contribution & Versioning
+
+- Pull requests are welcome.  
+- Use Git tags for versioning (e.g., `v1.0.0`).  
+- Consider adding a `CHANGELOG.md` for tracking updates.
+
