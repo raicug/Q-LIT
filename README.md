@@ -101,9 +101,3 @@ Q‑LIT/
 ## License
 
 Distributed under the **MIT License**.
-
----
-
-## Contribution & Versioning
-
-- Pull requests are welcome.
